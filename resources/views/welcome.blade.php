@@ -34,6 +34,7 @@
                    <livewire:counter/>
                     <livewire:contact-form/>
                     <livewire:search-dropdown/>
+                    <livewire:data-tables/>
                 </div>
             </div>
         </div>
