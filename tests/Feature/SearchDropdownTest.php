@@ -21,6 +21,5 @@ class SearchDropdownTest extends TestCase
             ->assertDontSee('John Lennon')
             ->set('search', 'Imagine')
             ->assertSee('John Lennon');
-
     }
 }

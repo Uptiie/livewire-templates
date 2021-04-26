@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormMailable;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', function () {
+    return view('welcome', [
+        'users' => User::paginate(10),
+    ]);
+});
 
 Route::post('/contact', function (Request $request) {
     $contact = $request->validate([
@@ -25,7 +30,7 @@ Route::post('/contact', function (Request $request) {
         'phone' => 'required',
         'message' => 'required',
     ]);
-    
+
     Mail::to('andre@andre.com')->send(new ContactFormMailable($contact));
 
     return back()->with('success_message', 'We received your message successfully and will get back to you shortly!');
