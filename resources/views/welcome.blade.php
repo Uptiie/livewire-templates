@@ -35,12 +35,16 @@
                     <livewire:contact-form/>
                     <livewire:search-dropdown/>
                     <livewire:data-tables/>
-                    <div class="my-8">
-                        <h2 class="text-lg font-bold mt-4">Livewire Blog Posts w/ Comments</h2>
+                    <div class="bg-white shadow-lg p-10">
+                        <h2 class="text-lg font-bold">Livewire Blog Posts w/ Comments</h2>
 
-                        <ul class="List-disc mt-4">
+                        <ul class="List-disc mt-6">
                             @foreach($posts as $post)
-                                <li><a href="{{ route('post.show', $post) }}" class="text-blue-600">{{ $post->title }}</a> </li>
+                                <li class="mt-10">
+                                    <a href="{{ route('post.show', $post) }}" class="bg-gray-100 border p-4 rounded-md">
+                                        {{ $post->title }} >
+                                    </a>
+                                </li>
                             @endforeach
                         </ul>
                     </div>

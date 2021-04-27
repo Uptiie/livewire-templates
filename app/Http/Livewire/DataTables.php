@@ -10,7 +10,7 @@ class DataTables extends Component
 {
     use WithPagination;
 
-    public $active = true;
+    public $active = false;
     public $search;
     public $sortField;
     public $sortAsc = true;
