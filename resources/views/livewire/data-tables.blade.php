@@ -37,15 +37,20 @@
                         <th
                             class="px-6 py-3 bg-gray-50 text-left">
                                 <div class="flex items-center">
-                                    <button wire:click="sortBy('name)" class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                    <button wire:click="sortBy('name')" class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                         Name
                                     </button>
-                                    <span>icon</span>
+                                    <x-sort-icon field="name" :sortField="$sortField" :sortAsc="$sortAsc"/>
                                 </div>
                         </th>
                         <th
-                            class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Email
+                            class="px-6 py-3 bg-gray-50 text-left">
+                            <div class="flex items-center">
+                                <button wire:click="sortBy('email')" class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                    Email
+                                </button>
+                                <x-sort-icon field="email" :sortField="$sortField" :sortAsc="$sortAsc"/>
+                            </div>
                         </th>
                         <th
                             class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
@@ -57,7 +62,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($users as $user)
                         <tr>
-                            <td class="px-6 py-4 whitespace-no-wrap">
+                            <td class="w-4/12 px-6 py-4 whitespace-no-wrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
                                         <img class="h-10 w-10 rounded-full"
@@ -70,10 +75,10 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
+                            <td class="w-4/12 px-6 py-4 whitespace-no-wrap">
                                 <div class="text-sm leading-5 text-gray-900">{{ $user->email }}</div>
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
+                            <td class="w-4/12 px-6 py-4 whitespace-no-wrap">
                                 @if ($user->active)
                                     <span
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">

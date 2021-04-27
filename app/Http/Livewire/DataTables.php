@@ -14,7 +14,10 @@ class DataTables extends Component
     public $search;
     public $sortField;
     public $sortAsc = true;
-//    helper method
+    protected $queryString = ['search', 'active', 'sortAsc'];
+
+
+    // helper method
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -24,6 +27,7 @@ class DataTables extends Component
         }
         $this->sortField = $field;
     }
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -31,13 +35,15 @@ class DataTables extends Component
 
     public function render()
     {
-//        return the users as either 'active'(checkbox wire model) or search via (name/email)
+        // return the users as either 'active'(checkbox wire model) or search via (name/email)
         return view('livewire.data-tables', [
             'users' => User::where(function ($query) {
                     $query->where('name', 'like', '%'.$this->search.'%')
                         ->orWhere('email', 'like', '%'.$this->search.'%');
                 })->where('active', $this->active)
-                    ->paginate(10),
+                    ->when($this->sortField, function ($query) {
+                        $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+                    })->paginate(10),
         ]);
     }
 }
