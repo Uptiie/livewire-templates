@@ -48,6 +48,7 @@
                             @endforeach
                         </ul>
                     </div>
+                    <livewire:poll-example/>
                 </div>
             </div>
         </div>
