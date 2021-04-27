@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Order;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Post;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory(100)->create();
+        Order::factory(10)->create();
 
         Post::create(['title' => 'My First post', 'content' => 'Content for my first post']);
         Post::create(['title' => 'My Second post', 'content' => 'Content for my second post']);
