@@ -6,6 +6,7 @@ use App\Mail\ContactFormMailable;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Comment;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,12 +39,40 @@ Route::post('/contact', function (Request $request) {
     return back()->with('success_message', 'We received your message successfully and will get back to you shortly!');
 });
 
-Route::get('/post/{post}', function (Post $post) {
-    return view('post.show', [
+// return a post
+Route::get('/post/{post}', function (Post $post) { return view('post.show', [
         'post' => $post,
     ]);
 })->name('post.show');
 
+// edit a post
+Route::get('/post/{post}/edit', function (Post $post) {
+   return view('post.edit', [
+        'post' => $post
+   ]);
+})->name('post.edit');
+
+// Patch post model with update
+Route::patch('/post/{post}', function (Request $request, Post $post) {
+
+    /** run validation */
+    $request->validate([
+        'title' => 'required',
+        'content' => 'required',
+        'photo' => 'nullable|sometimes|image|max:5000',
+    ]);
+
+    /** call post update method */
+    $post->update([
+        'title' => $request->title,
+        'content' => $request->content,
+        'photo' => $request->photo ? $request->file('photo')->store('photos', 'public') : $post->photo,
+    ]);
+
+    return back()->with('success_message', 'Post was updated successfully!');
+})->name('post.update');
+
+// comment on a post
 Route::post('/post/{post}/comment', function (Request $request, Post $post) {
     $request->validate([
         'comment' => 'required|min:4'
